@@ -1,0 +1,25 @@
+.featured-item{
+    background-image: url('../../../assets/home/featured.jpg');
+    /* make image dark shadow  */
+    background-color: rgba(0, 0, 0, 0.5);
+    background-blend-mode: overlay;
+   /* image parallax */
+    /* background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    text-align: center;
+    padding: 0 1rem;
+    position: relative;
+    z-index: 1; */
+    
+
+
+}
