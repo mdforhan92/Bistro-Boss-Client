@@ -1,11 +1,30 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../Providers/AuthProvider";
 
 const NavBar = () => {
+    const {user, logOut} = useContext(AuthContext);
+
+    const handleLogOut = () => {
+        logOut()
+        .then(() => {})
+        .catch((error) => {
+            console.log(error);
+        })
+    }
+
     const navOptions = <>
         <li className="font-semibold"><Link to="/">Home</Link></li>
         <li className="font-semibold"><Link to="/menu">Our Menu</Link></li>
         <li className="font-semibold"><Link to="/order/salad">Order Food</Link></li>
-        <li className="font-semibold"><Link to="/login">Login</Link></li>
+        
+        {
+            user ? <>
+            <button onClick={handleLogOut} className="btn btn-active btn-ghost">Logout</button>
+            </> : <>
+            <li className="font-semibold"><Link to="/login">Login</Link></li>
+            </>
+        }
     </>
     return (
         <>
