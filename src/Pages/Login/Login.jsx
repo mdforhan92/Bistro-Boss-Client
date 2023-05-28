@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import { AuthContext } from '../../Providers/AuthProvider';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Swal from 'sweetalert2';
 
@@ -9,6 +9,10 @@ const Login = () => {
   const [disabled, setDisabled] = useState(true);
 
   const { signIn } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || '/';
 
   useEffect(() => {
     loadCaptchaEnginge(6); // number of characters for captcha
@@ -32,7 +36,8 @@ const Login = () => {
           hideClass: {
             popup: 'animate__animated animate__fadeOutUp'
           }
-        })
+        });
+        navigate(from, { replace: true });
       })
 
   }
@@ -83,8 +88,9 @@ const Login = () => {
               {/* <button className="btn btn-outline btn-xs mt-2">Validate</button> */}
 
             </div>
+            {/* todo: make button disabled for captcha  */}
             <div className="form-control mt-6">
-              <input disabled={disabled} className="btn btn-primary" type="submit" value="Login" />
+              <input disabled={false} className="btn btn-primary" type="submit" value="Login" />
             </div>
           </form>
           <p><small>New Here? <Link to="/signup">Create an account</Link></small></p>

@@ -2,32 +2,46 @@ import { useContext } from "react";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../Providers/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 
 
 const SignUp = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const {createUser} = useContext(AuthContext);
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const { createUser, updateUserProfile } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const onSubmit = data => {
         console.log(data);
         createUser(data.email, data.password)
-        .then(result => {
-            const loggedUser = result.user;
-            console.log(loggedUser);
-        })
-        .catch(error => {
-            console.log(error);
-        })
+            .then(result => {
+                const loggedUser = result.user;
+                console.log(loggedUser);
+                updateUserProfile(data.name, data.photoURL)
+                    .then(() => {
+                        console.log("User profile info updated successfully")
+                        reset();
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Created User Successfully',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        navigate("/");
+                    })
+                    .catch(error => console.log(error));
+            })
+
     };
 
-    
+
 
 
     return (
         <>
-        <Helmet>
+            <Helmet>
                 <title>Bistro Boss | Signup</title>
             </Helmet>
             <div className="hero min-h-screen bg-base-200">
@@ -44,6 +58,13 @@ const SignUp = () => {
                                 </label>
                                 <input type="text" {...register("name", { required: true })} name="name" placeholder="Name" className="input input-bordered" />
                                 {errors.name && <span className="text-red-600">Write your name</span>}
+                            </div>
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Photo Url</span>
+                                </label>
+                                <input type="text" {...register("photoURL", { required: true })} placeholder="Photo Url" className="input input-bordered" />
+                                {errors.photoURL && <span className="text-red-600">PhotUrl is Required</span>}
                             </div>
                             <div className="form-control">
                                 <label className="label">
