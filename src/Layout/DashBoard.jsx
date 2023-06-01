@@ -2,18 +2,20 @@ import { NavLink, Outlet } from "react-router-dom";
 import { FaBook, FaCalendarAlt, FaHamburger, FaHome, FaShoppingCart, FaUsers, FaUtensils, FaWallet } from "react-icons/fa";
 import { AiOutlineMenu } from "react-icons/ai";
 import useCart from "../Hooks/useCart";
+import useAdmin from "../Hooks/useAdmin";
 
 const DashBoard = () => {
     const [cart] = useCart();
 
     //TODO: load data from the server to have dynamic isAdmin base on data 
-    const isAdmin = true;
+    // const isAdmin = true;
+    const [isAdmin] = useAdmin();
     return (
         <div className="drawer drawer-mobile ">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-            <div className="drawer-content flex flex-col items-center justify-center">
-                <Outlet></Outlet>
+            <div className="drawer-content">
                 <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">Open drawer</label>
+                <Outlet></Outlet>
 
             </div>
             <div className="drawer-side bg-[#D1A054]">
@@ -23,11 +25,11 @@ const DashBoard = () => {
                     {
                         isAdmin ? <>
                             <li><NavLink to='/dashboard/home'><FaHome></FaHome> Admin Home</NavLink></li>
-                            <li><NavLink to='/dashboard/reservation'><FaUtensils></FaUtensils> Add Items</NavLink></li>
-                            <li><NavLink to='/dashboard/history'><FaWallet></FaWallet> Manage Items</NavLink></li>
+                            <li><NavLink to='/dashboard/additem'><FaUtensils></FaUtensils> Add Items</NavLink></li>
+                            <li><NavLink to='/dashboard/manageitems'><FaWallet></FaWallet> Manage Items</NavLink></li>
                             <li><NavLink to='/dashboard/history'><FaBook></FaBook> Manage Booking</NavLink></li>
                             <li><NavLink to='/dashboard/allusers'><FaUsers></FaUsers> All Users</NavLink></li>
-                            
+
                         </> : <>
                             <li><NavLink to='/dashboard/home'><FaHome></FaHome> User Home</NavLink></li>
                             <li><NavLink to='/dashboard/reservation'><FaCalendarAlt></FaCalendarAlt> Reservation</NavLink></li>
