@@ -112,8 +112,8 @@ const CheckoutForm = ({ cart, price }) => {
                         },
                     }}
                 />
-                <button type="submit" disabled={!stripe || !clientSecret || processing}>
-                    <button className="btn btn-outline btn-primary mt-4 btn-sm">Pay</button>
+                <button className="btn btn-outline btn-primary mt-4 btn-sm" type="submit" disabled={!stripe || !clientSecret || processing}>
+                    Pay
                 </button>
             </form>
             {cardError && <p className="text-red-500 ml-8">{cardError}</p>
