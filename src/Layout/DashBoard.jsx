@@ -27,7 +27,7 @@ const DashBoard = () => {
                             <li><NavLink to='/dashboard/adminhome'><FaHome></FaHome> Admin Home</NavLink></li>
                             <li><NavLink to='/dashboard/additem'><FaUtensils></FaUtensils> Add Items</NavLink></li>
                             <li><NavLink to='/dashboard/manageitems'><FaWallet></FaWallet> Manage Items</NavLink></li>
-                            <li><NavLink to='/dashboard/history'><FaBook></FaBook> Manage Booking</NavLink></li>
+                            <li><NavLink to='/dashboard/history'><FaBook></FaBook> Manage Booking(Not implemented)</NavLink></li>
                             <li><NavLink to='/dashboard/allusers'><FaUsers></FaUsers> All Users</NavLink></li>
 
                         </> : <>
